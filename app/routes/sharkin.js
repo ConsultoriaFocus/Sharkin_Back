@@ -46,5 +46,14 @@ router.get('/list', WithAuth, async(req, res) =>{
     }
 });
 
+router.get('/listSharkin', async(req, res) =>{
+    try{
+        let docs = await Sharkin.find({IsComplete: false}).populate('User_Id');
+        res.status(200).json(docs);
+    }
+    catch (error) {
+        res.status(500).json({error: 'An internal error ocurred'});
+    }
+});
 
 module.exports = router;
