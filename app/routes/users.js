@@ -20,7 +20,7 @@ router.post('/register', function EmailIsFocus(req, res, next){
 })
 
 // Resgistering a new user
-router.post('/register', AllMembers, async(req, res) =>{
+router.post('/register', async(req, res) =>{
   const {name, email, password, EmPlantao, matricula} = req.body;
   const user = new User({name, email, password, EmPlantao, matricula});
   try{
