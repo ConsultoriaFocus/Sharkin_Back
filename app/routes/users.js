@@ -5,6 +5,7 @@ const AllMembers = require('../middlewares/AllMembers');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const secret = process.env.JWT_TOKEN;
+const bcrypt = require('bcrypt');
 
 // Checando se o email é da focus
 router.post('/register', function EmailIsFocus(req, res, next){
@@ -55,19 +56,19 @@ router.post('/login', async(req, res)=>{
   }
 })
 
-/*router.put('changepassword', async(req, res)=>{
-  let {password, newpassword, newpassword2, matricula}=req.body;
+router.put('/change-password', async(req, res)=>{
+  let { newpassword, newpassword2, matricula } = req.body;
   let user = await User.findOne({matricula: matricula });
+
+  if( newpassword !== newpassword2) return res.status(400).json({error: 'Password does not match'});
+
+  const newHashedPassword = await bcrypt.hash(newpassword, 10);
   
-    user.isCorrectPassword(password, function(err, same){
-      if(!same){
-        res.status(401).json({error:'Incorrect password'});
-      }
-     });
-      if(newpassword===newpassword2){
-          user.findOneAndUpdate({matricula: matricula }, {$set:{password: newpassword}});
-        }
-      })*/
+  user.password = newpassword;
+  await user.save();
+
+  res.status(200).json({message: 'Password changed successfully'});
+})
 
 
 module.exports = router;

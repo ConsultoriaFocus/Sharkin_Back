@@ -4,7 +4,7 @@ const Sharkin = require('../models/sharkin');
 const WithAuth = require('../middlewares/auth');
 const TurnInPlantao = require('../middlewares/TurnInPlantao');
 const TurnOffPlantao = require('../middlewares/TurnOffPlantao');
-const User_Sharkinmiddleware = require('../middlewares/User_sharkinmiddleware');
+const User_Sharkinmiddleware = require('../middlewares/User_Sharkinmiddleware');
 const IsInPlantao = require('../middlewares/IsInPlantao');
 const IsOutPlantao = require('../middlewares/IsOutPlantao');
 
