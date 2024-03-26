@@ -60,9 +60,9 @@ router.put('/change-password', async(req, res)=>{
   let { newpassword, newpassword2, matricula } = req.body;
   let user = await User.findOne({matricula: matricula });
 
-  if( newpassword !== newpassword2) return res.status(400).json({error: 'Password does not match'});
+  if (!user) return res.status(400).json({error: 'Matrícula inválida'});
 
-  const newHashedPassword = await bcrypt.hash(newpassword, 10);
+  if( newpassword !== newpassword2) return res.status(400).json({error: 'Password does not match'});
   
   user.password = newpassword;
   await user.save();
